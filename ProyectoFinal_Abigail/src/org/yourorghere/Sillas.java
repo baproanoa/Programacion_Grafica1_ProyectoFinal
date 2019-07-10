@@ -69,6 +69,49 @@ public class Sillas {
         
     }
     
+    public void sillaAlta(){
+        
+//        base = new Cubo(gl,x,y,z,ancho,alto/10,ancho,rx,ry,rz,r,g,b);
+//        patas1 = new Cubo(gl,x,y,z,ancho/6,alto/2,ancho/10,rx,ry,rz,r,g,b);
+//        patas2 = new Cubo(gl,x,y,z,ancho/6,alto,ancho/10,rx,ry,rz,r,g,b);
+//        espaldar = new Cubo(gl,x,y,z,ancho/6,alto/3,ancho,rx,ry,rz,r,g,b);
+
+    //asiento de la silla
+        gl.glPushMatrix();
+        gl.glColor3f(r,g,b);
+        gl.glTranslatef(x,y,z);
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho, ancho/5, 10, 10);
+        gl.glPopMatrix();
+        base.display();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(x+ancho/2.3f,y-alto/4,z-ancho/2.5f);
+        patas1.display();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(x+ancho/2.3f,y-alto/4,z+ancho/2.5f);
+        patas1.display();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(x-ancho/2.2f,y-alto/60,z-ancho/2.5f);
+        patas2.display();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(x-ancho/2.2f,y-alto/60,z+ancho/2.5f);
+        patas2.display();
+        gl.glPopMatrix();
+        
+         gl.glPushMatrix();
+        gl.glTranslatef(x-ancho/2.3f,y+alto/2,z-ancho/40);
+        espaldar.display();
+        gl.glPopMatrix();
+        
+    }
+    
     public void sillon(){
         espaldar = new Cubo(gl,x,y,z,ancho,alto/3,ancho/10,rx,ry,rz,r,g,b);
         posabrazo = new Cubo(gl,x,y,z,ancho/10,alto/7,ancho/3,rx,ry,rz,r,g,b);

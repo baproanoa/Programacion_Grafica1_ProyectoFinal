@@ -57,7 +57,7 @@ public class PiramideQuad {
         gl.glEnd();
         
         //lado1
-       gl.glColor3f(r-0.3f,g-0.1f,b-0.5f);
+       gl.glColor3f(r/2,g/2,b/2);
         gl.glBegin(gl.GL_TRIANGLES);
         gl.glVertex3f(x0-an,y0+al,z0-pr);
         gl.glVertex3f(x0+an, y0+al, z0-pr);

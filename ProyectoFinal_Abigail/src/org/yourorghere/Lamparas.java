@@ -34,10 +34,10 @@ public class Lamparas {
        
         //cable
         gl.glPushMatrix();
-         gl.glTranslatef(x,y+alto/3,z);
+         gl.glTranslatef(x,y+(alto/2.3f),z);
          gl.glRotatef(90,1,0,0);
          gl.glColor3f(0.7f,0.7f,0.9f);
-         glut.glutSolidCylinder(0.02f, 1.5f, 20, 20);
+         glut.glutSolidCylinder(0.02f, 1.5f, 5, 5);
          gl.glPopMatrix();
          
          
@@ -52,13 +52,41 @@ public class Lamparas {
          
          //foco
          gl.glPushMatrix();
-         gl.glTranslatef(x,y-alto/5,z);
+         gl.glTranslatef(x,y-(alto/5.5f),z);
          gl.glColor3f(1,1,0.6f);
          glut.glutSolidSphere(0.2f, 20, 20);
          gl.glPopMatrix();
         
     }
     
+    public void colgante2(GLUT glut){
+       
+        //cable
+        gl.glPushMatrix();
+         gl.glTranslatef(x,y+(alto/2f),z);
+         gl.glRotatef(90,1,0,0);
+         gl.glColor3f(0.7f,0.7f,0.9f);
+         glut.glutSolidCylinder(0.05f, 4f, 5, 5);
+         gl.glPopMatrix();
+         
+         
+         //lampara
+         gl.glPushMatrix();
+         gl.glTranslatef(x,y-(alto/0.9f),z);
+         gl.glRotatef(-90,1,0,0);
+         gl.glColor3f(r,g,b);
+         glut.glutWireIcosahedron();
+         gl.glPopMatrix();
+         
+         
+         //foco
+         gl.glPushMatrix();
+         gl.glTranslatef(x,y-(alto/0.9f),z);
+         gl.glColor3f(1,1,0.6f);
+         glut.glutSolidSphere(0.3f, 20, 20);
+         gl.glPopMatrix();
+        
+    }
         
     public void dePiso(GLUT glut){
        

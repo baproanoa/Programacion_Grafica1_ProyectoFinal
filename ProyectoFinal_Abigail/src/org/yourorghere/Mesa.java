@@ -15,10 +15,10 @@ import javax.media.opengl.GL;
 public class Mesa {
     
     GL gl;
+    GLUT glut;
    float x,y,z,rx,ry,rz,ancho,alto,prof,r,g,b;
-   Cubo tablero, patas;
- 
-
+   Cubo mesa,tablero, patas;
+   
     public Mesa(GL gl, float x, float y, float z, float rx, float ry, float rz, float ancho, float alto, float prof, float r, float g, float b) {
         this.gl = gl;
         this.x = x;
@@ -37,10 +37,81 @@ public class Mesa {
 
 
 
-    public void cocina(){
+    public void cocina(GLUT glut){
+        
+        tablero = new Cubo(gl,x,y+(alto/2),z,ancho+0.2f,alto/9,prof+0.2f,rx,ry,rz,1,1,1);
+        mesa = new Cubo(gl,x,y,z,ancho,alto,prof,rx,ry,rz,r,g,b);
+        
+        mesa.display();
+        tablero.display();
+        
+          gl.glPushMatrix();
+        gl.glColor3f(1,1,1);
+        gl.glBegin(gl.GL_LINES);
+        gl.glVertex3f(x+(ancho/(2)), y+(alto/2), z-(prof/1.9f));
+        gl.glVertex3f(x+(ancho/(2)), y-(alto/2), z-(prof/1.9f));
+        gl.glEnd();
+        gl.glPopMatrix();
+        
+        
+        gl.glPushMatrix();
+        gl.glColor3f(1,1,1);
+        gl.glBegin(gl.GL_LINES);
+        gl.glVertex3f(x+(ancho/(6.5f)), y+(alto/2), z-(prof/1.9f));
+        gl.glVertex3f(x+(ancho/(6.5f)), y-(alto/2), z-(prof/1.9f));
+        gl.glEnd();
+        gl.glPopMatrix();
+        
+        
+        gl.glPushMatrix();
+        gl.glColor3f(1,1,1);
+        gl.glTranslatef(x + (ancho/4), y, z-(prof/2));
+        glut.glutSolidSphere(0.1f, 20, 20);
+        gl.glPopMatrix();
+        
+         gl.glPushMatrix();
+        gl.glColor3f(1,1,1);
+        gl.glBegin(gl.GL_LINES);
+        gl.glVertex3f(x-(ancho/(5)), y+(alto/2), z-(prof/1.9f));
+        gl.glVertex3f(x-(ancho/(5f)), y-(alto/2), z-(prof/1.9f));
+        gl.glEnd();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glColor3f(1,1,1);
+        gl.glTranslatef(x - (ancho/2.5f), y, z-(prof/2));
+        glut.glutSolidSphere(0.1f, 20, 20);
+        gl.glPopMatrix();
+        
+         gl.glPushMatrix();
+        gl.glColor3f(1,1,1);
+        gl.glBegin(gl.GL_LINES);
+        gl.glVertex3f(x-(ancho/(2)), y+(alto/2), z-(prof/1.9f));
+        gl.glVertex3f(x-(ancho/(2)), y-(alto/2), z-(prof/1.9f));
+        gl.glEnd();
+        gl.glPopMatrix();
+        
+         gl.glPushMatrix();
+        gl.glColor3f(1,1,1);
+        gl.glTranslatef(x-(ancho/8f), y, z-(prof/2));
+        glut.glutSolidSphere(0.1f, 20, 20);
+        gl.glPopMatrix();
+        
+        
+        
+        
         
     }
     
+    public void isla(){
+        
+        tablero = new Cubo(gl,x,y+(alto/2),z,ancho+0.5f,alto/9,prof+0.5f,rx,ry,rz,1,1,1);
+        mesa = new Cubo(gl,x,y,z,ancho,alto,prof,rx,ry,rz,r,g,b);
+        
+        
+        mesa.display();
+        tablero.display();
+    }
     public void noche(){
         
     }
