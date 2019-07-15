@@ -112,7 +112,49 @@ public class Mesa {
         mesa.display();
         tablero.display();
     }
-    public void noche(){
+    public void mesaredonda(GLUT glut){
+        
+    //tablero
+        gl.glPushMatrix();
+        gl.glColor3f(r,g,b);
+        gl.glTranslatef(x,y,z);
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho, ancho/5, 20, 20);
+        gl.glPopMatrix();
+        
+        
+        
+        //pata 1
+        gl.glPushMatrix();
+        gl.glColor3f(0,0,0);
+        gl.glTranslatef(x-(ancho/2),y-0.2f,z-(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/15, alto, 20, 20);
+        gl.glPopMatrix();
+        
+        //pata 2
+        gl.glPushMatrix();
+        gl.glColor3f(0,0,0);
+        gl.glTranslatef(x-(ancho/2),y-0.2f,z+(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/15, alto, 20, 20);
+        gl.glPopMatrix();
+        
+        //pata 3
+        gl.glPushMatrix();
+        gl.glColor3f(0,0,0);
+        gl.glTranslatef(x+(ancho/2),y-0.2f,z-(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/15, alto, 20, 20);
+        gl.glPopMatrix();
+        
+        //pata 4
+        gl.glPushMatrix();
+        gl.glColor3f(0,0,0);
+        gl.glTranslatef(x+(ancho/2),y-0.2f,z+(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/15, alto, 20, 20);
+        gl.glPopMatrix();
         
     }
     

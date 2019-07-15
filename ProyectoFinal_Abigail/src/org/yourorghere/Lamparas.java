@@ -130,6 +130,30 @@ public class Lamparas {
          gl.glPopMatrix();
         
     }
+    
+    public void deTecho(GLUT glut){
+        
+        gl.glPushMatrix();
+         gl.glTranslatef(x,y,z);
+         gl.glRotatef(90,1,0,0);
+         gl.glColor3f(r,g,b);
+         glut.glutSolidCone(alto,alto/2,20, 20);
+         gl.glPopMatrix();
+        
+                 //foco
+         gl.glPushMatrix();
+         gl.glTranslatef(x,y-alto/3,z);
+         gl.glRotatef(90,1,0,0);
+          gl.glColor3f(r,g,b);
+         glut.glutSolidCylinder(alto/3,alto/3, 20, 20);
+         gl.glPopMatrix();
+         
+         gl.glPushMatrix();
+         gl.glTranslatef(x,y-alto,z);
+         gl.glColor3f(1,1,0.6f);
+         glut.glutSolidSphere(alto/2, 20, 20);
+         gl.glPopMatrix();
+    }
     public float getX() {
         return x;
     }

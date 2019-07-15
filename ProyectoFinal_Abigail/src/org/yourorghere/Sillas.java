@@ -69,7 +69,8 @@ public class Sillas {
         
     }
     
-    public void sillaAlta(){
+    float r2= 0.8f,g2=0.8f,b2=0.8f;
+    public void sillaAlta(GLUT glut){
         
 //        base = new Cubo(gl,x,y,z,ancho,alto/10,ancho,rx,ry,rz,r,g,b);
 //        patas1 = new Cubo(gl,x,y,z,ancho/6,alto/2,ancho/10,rx,ry,rz,r,g,b);
@@ -81,35 +82,43 @@ public class Sillas {
         gl.glColor3f(r,g,b);
         gl.glTranslatef(x,y,z);
         gl.glRotatef(90,1,0,0);
-        glut.glutSolidCylinder(ancho, ancho/5, 10, 10);
+        glut.glutSolidCylinder(ancho, ancho/4, 20, 20);
         gl.glPopMatrix();
-        base.display();
         
+        //patas de la silla
+        
+        //pata 1
         gl.glPushMatrix();
-        gl.glTranslatef(x+ancho/2.3f,y-alto/4,z-ancho/2.5f);
-        patas1.display();
+        gl.glColor3f(r2,b2,g2);
+        gl.glTranslatef(x-(ancho/2),y-0.2f,z-(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/13, alto, 20, 20);
         gl.glPopMatrix();
         
+        //pata 2
         gl.glPushMatrix();
-        gl.glTranslatef(x+ancho/2.3f,y-alto/4,z+ancho/2.5f);
-        patas1.display();
+        gl.glColor3f(r2,b2,g2);
+        gl.glTranslatef(x-(ancho/2),y-0.2f,z+(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/13, alto, 20, 20);
         gl.glPopMatrix();
         
+        //pata 3
         gl.glPushMatrix();
-        gl.glTranslatef(x-ancho/2.2f,y-alto/60,z-ancho/2.5f);
-        patas2.display();
+        gl.glColor3f(r2,b2,g2);
+        gl.glTranslatef(x+(ancho/2),y-0.2f,z-(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/13, alto, 20, 20);
         gl.glPopMatrix();
         
+        //pata 4
         gl.glPushMatrix();
-        gl.glTranslatef(x-ancho/2.2f,y-alto/60,z+ancho/2.5f);
-        patas2.display();
+        gl.glColor3f(r2,b2,g2);
+        gl.glTranslatef(x+(ancho/2),y-0.2f,z+(ancho/2));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(ancho/13, alto, 20, 20);
         gl.glPopMatrix();
-        
-         gl.glPushMatrix();
-        gl.glTranslatef(x-ancho/2.3f,y+alto/2,z-ancho/40);
-        espaldar.display();
-        gl.glPopMatrix();
-        
+            
     }
     
     public void sillon(){

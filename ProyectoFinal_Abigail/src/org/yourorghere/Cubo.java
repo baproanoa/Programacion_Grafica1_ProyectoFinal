@@ -61,8 +61,7 @@ public class Cubo {
         gl.glEnd();
         
 //        //cara 3
-//        gl.glColor3f(r/3,g/3,b/3);
-//        gl.glColor3f(r,g,b);
+
         gl.glColor3f(r/2,g/2,b/2);
         gl.glBegin(gl.GL_QUADS);
         gl.glVertex3f(x + an,y - al,z + pr);
@@ -72,7 +71,6 @@ public class Cubo {
         gl.glEnd();
         
 //        //cara 4
-//        gl.glColor3f(r/2,g/3,b);
 //        gl.glColor3f(r,g,b);
         gl.glColor3f(r/2,g/2,b/2);
         gl.glBegin(gl.GL_QUADS);
@@ -93,9 +91,8 @@ public class Cubo {
         gl.glEnd();
 //        
 //        //cara 6
-//        gl.glColor3f(r,g,b);
+
         gl.glColor3f(r/2,g/2,b/2);
-//        gl.glColor3f(r,g,b);
          gl.glBegin(gl.GL_QUADS);
         gl.glVertex3f(x - an,y - al,z-pr);
         gl.glVertex3f(x + an,y - al,z-pr);

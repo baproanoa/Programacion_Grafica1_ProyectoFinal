@@ -31,27 +31,34 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
     static GLU glu;
     static float rotar = 0;
     float movex,movey,movez,movex1,movey1, trasladaX=0, trasladaY=0;
-//    CILINDRO cilindro, cono, cubo;
     float rot, i;
     Esfera cam;
     Casa3D casa;
-   Cubo pisocasa, pisoprin,piso2do,piso22, paredizq,paredizqUp,paredpos,paredent,paredderEnt,paredder,paredadelanteUp,paredadelante,pared2,pared3,pared4, mesacocina, estante;
+   Cubo pisocasa, pisocasasala,pisocasasalaUp, pisoprin,piso2do,piso22,piso23,pisojardin; 
+   Cubo paredizq,paredizqUp,paredpos,paredent,paredderEnt,paredder,paredadelanteUp,paredadelante,pared2,pared3,pared4;
    Cubo2 camara;
    Arbol3D arbol;
    Cama cama1, cama2, cama3;
-   Gradas gradasEntra,gradas2,gradas3;
-   Mesa comedor, mesatele, mesoncocina, islacocina;
-   Lamparas lampcomedor, lamp2,lampCocina, lamp2Cocina;
-   Sillas sala,sala2, sillaMesa;
-   Baranda barangradas;
+   Gradas gradasEntra,gradas2,gradas3, gradasjardin;
+   Mesa comedor, mesatele, mesoncocina, islacocina, mesasala;
+   Lamparas lampcomedor, lamp2,lampCocina, lamp2Cocina, lampEntrada;
+   Sillas sala,sala2, sillaMesa, sillaIsla;
    Television teleSala;
-   Baranda barandaEntrada;
-   Cocina estufa;
+   Baranda barangradadas, barandaEntrada, barandajardin1,barandajardin2,barandajardin3;
+   Cocina estufa, micro;
    ExtractorCocina extract;
    Lavabo lavCocina;
    Baldosa pisococina;
-   Quad2 fondopisoCocina;
-
+   Quad2 fondopisoCocina, techoprimerpiso;
+   Refrigerador refri;
+   Tetera t1;
+   ParedLineas paredsala;
+   Alfombras alfombraSala;
+   Chimenea chimeneasala;
+   Floreros floreromesasala, florero2;
+   Puerta puertaprincipal, puertajardin;
+   Ventanas ventana1,ventanasala, ventana2, ventana3, ventana4;
+   Pergola pergolajardin;
 
     public Escenario(){
 //        setTitle("Puntos");
@@ -148,13 +155,17 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
         gl.glEnable(gl.GL_DEPTH_TEST);
         gl.glShadeModel(GL.GL_SMOOTH); 
         
-        camara = new Cubo2(gl, 0, 0, 0, 100, 100, 100, 0, 0, 0);
+        camara = new Cubo2(gl, 0, 0, 0, 300, 300, 300, 0, 0, 0);
         cam=new Esfera(-7,1,-7,1,1,1,0,0,0,0,1,0,gl,.5f,7,7);
-        casa = new Casa3D(gl,-0.7f,-0.3f,0.3f,1.75f,1.75f,0,0,0);
+        
+        pisoprin = new Cubo(gl,0,0,0,200f,2f,300f,0,0,0,0f,0.6f,0.2f);
         pisocasa = new Cubo(gl,0,0,0f,40f,1f,50f,0,0,0,0.9f,0.8f,0.6f);
-        piso2do = new Cubo(gl,0,0,0f,39.5f,0.5f,49.5f,0,0,0,0.5f,0.3f,0f);
-        piso22 = new Cubo(gl,0,0,0f,9f,0.25f,17.5f,0,0,0,0.5f,0.3f,0f);
-        pisoprin = new Cubo(gl,0,0,0,70f,2f,100f,0,0,0,0f,0.6f,0.2f);
+        pisocasasala = new Cubo(gl,0,0,0f,33f,1f,20f,0,0,0,0.9f,0.8f,0.6f);
+        pisocasasalaUp = new Cubo(gl,0,0,0f,32f,0.5f,20f,0,0,0,1.8f,1.8f,1.8f);
+        piso2do = new Cubo(gl,0,0,0f,26.5f,0.5f,49.5f,0,0,0,1.8f,1.8f,1.8f);
+        piso22 = new Cubo(gl,0,0,0f,14f,0.5f,35f,0,0,0,1.8f,1.8f,1.8f);
+        piso23 = new Cubo(gl,0,0,0f,14f,0.5f,12f,0,0,0,1.8f,1.8f,1.8f);
+        pisojardin = new Cubo(gl,0,0,0f,20f,1f,45f,0,0,0,0.9f,0.8f,0.6f);
         paredpos = new Cubo(gl,0,0,0,0.1f,30,12.3f,0,0,0,1f,0.5f,0.3f);
         paredizq = new Cubo(gl,0,0,0,0.1f,15,8,0,0,0,0.9f,0.8f,0.7f);
         paredizqUp = new Cubo(gl,0,0,0,0.1f,15,10f,0,0,0,0.9f,0.8f,0.7f);
@@ -163,35 +174,53 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
         paredderEnt = new Cubo(gl,0,0,0,0.1f,15,1.75f,0,0,0,0.9f,0.6f,0.4f);
         paredadelanteUp = new Cubo(gl,0,0,0,0.1f,15,12.4f,0,0,0,0.9f,0.8f,0.7f);
         paredadelante = new Cubo(gl,0,0,0,0.1f,15,9.5f,0,0,0,0.9f,0.8f,0.7f);
-        pared2 = new Cubo(gl,0,0,0,0.1f,10,1,0,0,0,0.9f,0.9f,0.6f);
-        pared3 = new Cubo(gl,0,0,0,0.1f,1.5f,1.2f,0,0,0,0.9f,0.9f,0.6f);
-        pared4 = new Cubo(gl,0,0,0,0.1f,6.5f,4.7f,0,0,0,0.9f,0.9f,0.6f);
+        pared2 = new Cubo(gl,0,0,0,0.1f,15,9.5f,0,0,0,0.9f,0.8f,0.7f);
+        pared3 = new Cubo(gl,0,0,0,0.1f,15,5f,0,0,0,0.9f,0.6f,0.4f);
+        pared4 = new Cubo(gl,0,0,0,0.1f,15,5.5f,0,0,0,1f,0.5f,0.3f);
         arbol = new Arbol3D(gl,0,0,0,0.5f,0.4f,0,0,0);
         cama1 = new Cama(gl,0,0,0,0,0,0,0.3f,0.7f,0.9f,0.7f);
         cama2 = new Cama(gl,0,0,0,0,0,0,1f,0.3f,0.6f,0.7f);
         cama3 = new Cama(gl,0,0,0,0,0,0,0.6f,0f,0.2f,0.7f);
         gradasEntra = new Gradas(gl,0,0,0,3,0,0,0,0.9f,0.9f,0.8f);
-        gradas2 = new Gradas(gl,0,0,0,2f,0,-90,0,0.5f,0.3f,0);
-        gradas3 = new Gradas(gl,0,0,0,2f,0,0,0,0.5f,0.3f,0);
+        gradas2 = new Gradas(gl,0,0,0,2f,0,-90,0,0.8f,0.6f,0.4f);
+        gradas3 = new Gradas(gl,0,0,0,2f,0,0,0,0.8f,0.6f,0.4f);
         comedor = new Mesa(gl,0,0,0,0,0,0,1f,2f,0.5f,0.9f,0.6f,0.3f);
         mesatele = new Mesa(gl,0,1.5f,1.7f,0,90,0,4f,2f,2f,0.9f,0.6f,0.3f);
         mesoncocina = new Mesa(gl,0,0,0,0,0,0,15,5,3,1f,0.8f,0.6f);
         islacocina = new Mesa(gl,0,0,0,0,0,0,9,5,4,1f,0.8f,0.6f);
+        mesasala = new Mesa(gl,0,0,0,0,0,0,3,2.5f,3,1,1,1);
         lampcomedor = new Lamparas(gl,0,0,0,3,1f,0.7f,0.1f);
         lamp2 = new Lamparas(gl,0,0,0,4,1f,1f,1f);
         lampCocina = new Lamparas(gl,0,0,0,3,1,1,1);
         lamp2Cocina = new Lamparas(gl,0,0,0,3,1,1,1);
-        sala = new Sillas(gl,0,0.8f,0f,0,180,0,7,5f,1f,0.6f,0.5f);
-        sala2 = new Sillas(gl,-6,0.8f,-1.1f,0,90,0,5f,5f,0.2f,0.1f,0.5f);
+        lampEntrada = new Lamparas(gl,0,0,0,1,1,1,1);
+        sala = new Sillas(gl,0,0.8f,0f,0,180,0,7,5f,0.9f,0.7f,0.3f);
+        sala2 = new Sillas(gl,0,0.8f,0,0,90,0,7f,5f,0f,0.5f,0.8f);
         sillaMesa = new Sillas(gl,0,0,0,0,0,0,1,1.5f,0.9f,0.6f,0.3f);
-        barangradas = new Baranda(gl,0,0,0,0,0,0,0.2f,0.4f,0,0,1);
-        teleSala = new Television(gl,0,0,0,0,0,0,2f,1.5f);
+        sillaIsla = new Sillas(gl,0,0,0,0,0,0,1f,4f,0.9f,0.4f,0.5f);
         barandaEntrada = new Baranda(gl,0,0,0,0,0,0,5f,0.5f,0.9f,0.9f,0.8f);
+        barandajardin1 = new Baranda(gl,0,0,0,0,0,0,5f,0.5f,0.9f,0.9f,0.8f);
         estufa = new Cocina(gl,0,0,0,0,0,0,6,5,3,1,1,1);
+        micro = new Cocina(gl,0,0,0,0,0,0,4,2.7f,2f,1,1,1);
         extract = new ExtractorCocina(gl,0,0,0,7f,8f,4f,1f,1f,1f);
         lavCocina = new Lavabo(gl,0,0,0,5,3,3,0,0,1);
         pisococina = new Baldosa(gl,0,0,0,10,15,0.9f,0.9f,0.9f);
         fondopisoCocina = new Quad2(gl,0,0,0,9,12,0,0,0,1,1,1,1f,1f,1f);
+        refri = new Refrigerador(gl,0,0,0,5,10,3,1,1,1);
+        t1 = new Tetera(gl,0.8f,0,0,0,0,0,0,0.8f,0.6f,0.7f);
+        paredsala = new ParedLineas(gl,-16,8,44.35f,1f,8,1,1,1);
+        alfombraSala= new Alfombras(gl,-0.5f,1.1f,0f,2.5f,1f,0.9f,0.9f);
+        chimeneasala = new Chimenea(gl,0,0,0,7,3.5f,2.5f,0.9f,0.9f,0.9f);
+        floreromesasala = new Floreros(gl,0,0,0,1.5f,0,0,0);
+        florero2 = new Floreros(gl,0,0,0,2f,0,0,0);
+        puertaprincipal = new Puerta(gl,0,0,0,6,12,1.8f,1.8f,1.8f);
+        puertajardin = new Puerta(gl,0,0,0,6,12,2f,2f,2f);
+        ventana1 = new Ventanas(gl,0,0,0,30,11,1.8f,1.8f,1.8f);
+        ventana2 = new Ventanas(gl,0,0,0,18,8,1.8f,1.8f,1.8f);
+        ventana3 = new Ventanas(gl,0,0,0,30,11,1.8f,1.8f,1.8f);
+        ventana4 = new Ventanas(gl,0,0,0,30,11,1.8f,1.8f,1.8f);
+        ventanasala = new Ventanas(gl,0,0,0,13,23,1.8f,1.8f,1.8f);
+        pergolajardin = new Pergola(gl,0,0,0,44,12,14,0.5f,0.3f,0.1f);
 //        cama2 = new Cama(gl,0,0,0,0,0,0,2f,0.3f,0.1f,0.5f);
     }
 
@@ -255,9 +284,11 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
         }
         
         
+        //PISOS 
+        
         //piso principal
         gl.glPushMatrix();
-        gl.glTranslatef(0,-1f,0);
+        gl.glTranslatef(20,-1f,0);
         pisoprin.display();
         gl.glPopMatrix();
         ///////////////////////////
@@ -269,17 +300,211 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
         gl.glPopMatrix();
         ///////////////////////////
         
-        //2do piso de la casa
+        //piso sala de la casa
         gl.glPushMatrix();
-        gl.glTranslatef(-5.5f,16f,0);
-        piso2do.display();
+        gl.glTranslatef(-2f,0.5f,-35);
+        pisocasasala.display();
         gl.glPopMatrix();
         ///////////////////////////
         
-
+        //piso del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(20f,0.5f,2.5f);
+        pisojardin.display();
+        gl.glPopMatrix();
+        ///////////////////////////
+        
+        //2do piso de la casa
+    
+        gl.glPushMatrix();
+        gl.glTranslatef(-1.9f,16f,-34.5f);
+        pisocasasalaUp.display();
+        gl.glPopMatrix();
+      
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(1f,16f,0);
+        piso2do.display();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-18f,16f,7.45f);
+        piso22.display();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-18f,16f,-18.59f);
+        piso23.display();
+        gl.glPopMatrix();
+        /////////////////////////
+       
+        //PUERTAS
+        
+        //puerta principal
+        gl.glPushMatrix();
+        gl.glTranslatef(-17.6f,7f,-20);
+        puertaprincipal.display(glut);
+        gl.glPopMatrix();
+        
+        //puerta del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(14f,7f,-10);
+        puertajardin.puertadoble(glut);
+        gl.glPopMatrix();
+        /////////////////////////
+        
+        //VENTANAS
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-25,9,5.5f);
+        ventana1.ventana1();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-18.3f,17,-35f);
+        ventanasala.ventana2();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-25,24,-13f);
+        ventana2.ventana1();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-25,24,13f);
+        ventana2.ventana1();
+        gl.glPopMatrix();
+        
+        //ventanas posteriores
+        
+        //ventana 1 arriba
+        gl.glPushMatrix();
+        gl.glTranslatef(14.5f,24,13f);
+        ventana2.ventana1();
+        gl.glPopMatrix();
+        
+        //ventana 1 abajo
+        gl.glPushMatrix();
+        gl.glTranslatef(14.5f,9,13f);
+        ventana2.ventana1();
+        gl.glPopMatrix();
+        
+        //ventana 2 arriba
+        gl.glPushMatrix();
+        gl.glTranslatef(14.5f,24,-10f);
+        ventana2.ventana1();
+        gl.glPopMatrix();
+        
+        //ventana 3 arriba
+        gl.glPushMatrix();
+        gl.glTranslatef(14.5f,24,-33f);
+        ventana2.ventana1();
+        gl.glPopMatrix();
+        
+        //ventana 3 abajo
+        gl.glPushMatrix();
+        gl.glTranslatef(14.5f,9,-33f);
+        ventana2.ventana1();
+        gl.glPopMatrix();
+        /////////////////////////
+        
+        //lampara puerta de entrada
+        gl.glPushMatrix();
+        gl.glTranslatef(-22,15.8f,-20);
+        lampEntrada.deTecho(glut);
+        gl.glPopMatrix();
+        /////////////////////////
+        
+        //JARDIN
+        
+        //pergola
+        gl.glPushMatrix();
+        gl.glTranslatef(21,15,3);
+        gl.glRotatef(90,0,1,0);
+        pergolajardin.display(glut);
+        gl.glPopMatrix();
+        
+        //baranda del jardin
+//        gl.glPushMatrix();
+//        gl.glTranslatef(30f,3.5f,0f);
+//        gl.glRotatef(90,0,1,0);
+//        barandajardin1.display(5);
+//        gl.glPopMatrix();
+        
+         //baranda del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(30f,3.5f,-7.5f);
+        gl.glRotatef(90,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+        
+         //baranda del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(30f,3.5f,-15f);
+        gl.glRotatef(90,0,1,0);
+        barandajardin1.display(3);
+        gl.glPopMatrix();
+        
+         //baranda del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(30f,3.5f,7.5f);
+        gl.glRotatef(90,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+       
+        //baranda del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(30f,3.5f,15f);
+        gl.glRotatef(90,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+        
+         //baranda del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(30f,3.5f,22.5f);
+        gl.glRotatef(90,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+        
+        //baranda del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(30f,3.5f,25.5f);
+        gl.glRotatef(90,0,1,0);
+        barandajardin1.display(3);
+        gl.glPopMatrix();
+        
+          //baranda del jardin
+        gl.glPushMatrix();
+        gl.glTranslatef(30.3f,3.5f,24.7f);
+        gl.glRotatef(180,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(23f,3.5f,24.7f);
+        gl.glRotatef(180,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(30.3f,3.5f,-20f);
+        gl.glRotatef(180,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(23f,3.5f,-20f);
+        gl.glRotatef(180,0,1,0);
+        barandajardin1.display(5);
+        gl.glPopMatrix();
+        /////////////////////////
+        
+        
+        //GRADAS
+       
         //gradas de la entrada
         gl.glPushMatrix();
-        gl.glTranslatef(-29f,-0.9f,-19f);
+        gl.glTranslatef(-30f,-0.9f,-18f);
         gl.glScalef(1f,0.8f,1f);
         gradasEntra.display(2);
         gl.glPopMatrix();
@@ -412,9 +637,22 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
          gl.glPopMatrix();
          ///////////////////////////
          
+         //sillas isla cocina
+         gl.glPushMatrix();
+         gl.glTranslatef(-5.5f,5f,10);
+         sillaIsla.sillaAlta(glut);
+         gl.glPopMatrix();
+         
+         gl.glPushMatrix();
+         gl.glTranslatef(-5.5f,5f,13);
+         sillaIsla.sillaAlta(glut);
+         gl.glPopMatrix();
+         ///////////////////////////
+         
+         
          //lampara isla cocina
          gl.glPushMatrix();
-         gl.glTranslatef(0,14.5f,15);
+         gl.glTranslatef(0,14.5f,13);
          lamp2Cocina.colgante2(glut);
          gl.glPopMatrix();
          ///////////////////////////
@@ -442,11 +680,35 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
          gl.glPopMatrix();
          ///////////////////////////
          
+         //microondas
+         gl.glPushMatrix();
+         gl.glTranslatef(2f,7,23f);
+         gl.glRotatef(90,0,1,0);
+         gl.glRotatef(-90,0,1,0);
+         micro.dibujaMicro(glut);
+         gl.glPopMatrix();
+         ///////////////////////////
+         
+         //refri
+         gl.glPushMatrix();
+         gl.glTranslatef(-5,6,23);
+         refri.display(glut);
+         gl.glPopMatrix();
+         ///////////////////////////
+         
          //extractor cocina
          gl.glPushMatrix();
          gl.glTranslatef(12,12f,3.5f);
          gl.glRotatef(90,0,1,0);
          extract.display(glut);
+         gl.glPopMatrix();
+         ///////////////////////////
+         
+         //tetera
+         gl.glPushMatrix();
+         gl.glTranslatef(13f,6.5f,8);
+         gl.glRotatef(90,0,1,0);
+         t1.drawSolid(glut);
          gl.glPopMatrix();
          ///////////////////////////
          //mueble cocina arriba fondo
@@ -469,18 +731,63 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
          
          //SALA
          
+         //tapiz pared sala
+         gl.glPushMatrix();
+         gl.glRotatef(90,0,1,0);
+         paredsala.display(8);
+         gl.glPopMatrix();
+         ///////////////////////////
+         
+         //alfombra de la sala
+         gl.glPushMatrix();
+         gl.glTranslatef(2,0,-14);
+         alfombraSala.alfombraRedonda();
+         gl.glPopMatrix();
+         ///////////////////////////
+         
          //sillones
          gl.glPushMatrix();
-         gl.glTranslatef(1,-0.5f,-22.5f);
+         gl.glTranslatef(1,-0.5f,-42f);
          gl.glScalef(1.5f,1.5f,2);
          gl.glRotatef(180,0,1,0);
          sala.sillon();
          gl.glPopMatrix();
          
-//          gl.glPushMatrix();
-//         sala2.sillon();
-//         gl.glPopMatrix();
+          gl.glPushMatrix();
+          gl.glTranslatef(-8,-0.5f,-30);
+          gl.glScalef(1.5f,1.5f,1);
+         sala2.sillon();
+         gl.glPopMatrix();
          ///////////////////////////
+         
+         //mesa de centro sala
+         gl.glPushMatrix();
+         gl.glTranslatef(0,3.5f ,-30);
+         mesasala.mesaredonda(glut);
+         gl.glPopMatrix();
+         ///////////////////////////
+         
+         //florero mesa sala
+         gl.glPushMatrix();
+         gl.glTranslatef(0,5,-30);
+         floreromesasala.tipo1(glut);
+         gl.glPopMatrix();
+          ///////////////////////////
+          
+         //chimenea sala
+         gl.glPushMatrix();
+         gl.glTranslatef(12.5f,4.5f ,-33);
+         gl.glRotatef(90,0,1,0);
+         chimeneasala.display();
+         gl.glPopMatrix();
+         ///////////////////////////
+         
+//         //florero 2 
+//         gl.glPushMatrix();
+//         gl.glTranslatef(0,5,0);
+//         florero2.tipo2(glut);
+//         gl.glPopMatrix();
+//         ///////////////////////////
          
          //lampara de piso
 //          gl.glPushMatrix();
@@ -516,11 +823,20 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
          gl.glPopMatrix();
          ///////////////////////////
          
-          //pared izq
+          //pared izq abajo
          gl.glPushMatrix();
          gl.glRotatef(90,0,1,0);
          gl.glScalef(4,1,4);
-         gl.glTranslatef(6.2f,8.5f,-0.4f);
+         gl.glTranslatef(11.16f,8.5f,-0.48f);
+         paredizq.display();
+         gl.glPopMatrix();
+        ///////////////////////////
+        
+          //pared izq arriba
+         gl.glPushMatrix();
+         gl.glRotatef(90,0,1,0);
+         gl.glScalef(4,1,4);
+         gl.glTranslatef(11.16f,23.5f,-0.48f);
          paredizq.display();
          gl.glPopMatrix();
         ///////////////////////////
@@ -552,24 +868,80 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
          gl.glPopMatrix();
         ///////////////////////////
         
-//           //pared delantera
-//         gl.glPushMatrix();
-//         gl.glRotatef(180,0,1,0);
-//         gl.glScalef(4,1,4);
-//         gl.glTranslatef(6.3f,8.5f,-1.45f);
-//         paredadelante.display();
-//         gl.glPopMatrix();
-//         ///////////////////////////
-//
-//          //pared adelante arriba
-//         gl.glPushMatrix();
-//         gl.glRotatef(180,0,1,0);
-//         gl.glScalef(4,1,4);
-//         gl.glTranslatef(6.3f,23.5f,-0.008f);
-//         paredadelanteUp.display();
-//         gl.glPopMatrix();
-//         ///////////////////////////
+        //pared adelante sala abajo
+         gl.glPushMatrix();
+         gl.glRotatef(180,0,1,0);
+         gl.glScalef(4,1,4);
+         gl.glTranslatef(4.49f,8.5f,8.7f);
+         pared3.display();
+         gl.glPopMatrix();
+        ///////////////////////////
+        
+        //pared adelante sala arriba
+         gl.glPushMatrix();
+         gl.glRotatef(180,0,1,0);
+         gl.glScalef(4,1,4);
+         gl.glTranslatef(4.49f,23.5f,8.7f);
+         pared3.display();
+         gl.glPopMatrix();
+        ///////////////////////////
+        
+        //pared posterior sala abajo
+         gl.glPushMatrix();
+         gl.glRotatef(180,0,1,0);
+         gl.glScalef(4,1,4);
+         gl.glTranslatef(-3.59f,8.5f,8.5f);
+         gl.glRotatef(180,0,1,0);
+         pared4.display();
+         gl.glPopMatrix();
+        ///////////////////////////
+        
+        //pared posterior sala arriba
+         gl.glPushMatrix();
+         gl.glRotatef(180,0,1,0);
+         gl.glScalef(4,1,4);
+         gl.glTranslatef(-3.59f,23.5f,8.5f);
+         gl.glRotatef(180,0,1,0);
+         pared4.display();
+         gl.glPopMatrix();
+        ///////////////////////////
+        
+           //pared delantera abajo
+         gl.glPushMatrix();
+         gl.glRotatef(180,0,1,0);
+         gl.glScalef(4,1,4);
+         gl.glTranslatef(6.3f,8.5f,-1.45f);
+         paredadelante.display();
+         gl.glPopMatrix();
+         ///////////////////////////
+
+          //pared adelante arriba
+         gl.glPushMatrix();
+         gl.glRotatef(180,0,1,0);
+         gl.glScalef(4,1,4);
+         gl.glTranslatef(6.3f,23.5f,-0.008f);
+         paredadelanteUp.display();
+         gl.glPopMatrix();
+         ///////////////////////////
            
+//        //pared mitad (cuartos) 2do piso
+//         gl.glPushMatrix();
+//         gl.glRotatef(180,0,1,0);
+//         gl.glScalef(4,1,4);
+//         gl.glTranslatef(2f,23.5f,-1.45f);
+//         pared2.display();
+//         gl.glPopMatrix();
+//         ///////////////////////////
+         
+//           //pared izq arriba
+//         gl.glPushMatrix();
+//         gl.glRotatef(90,0,1,0);
+//         gl.glScalef(4,1,4);
+//         gl.glTranslatef(0f,23.5f,-1.4f);
+//         paredizqUp.display();
+//         gl.glPopMatrix();
+//        ///////////////////////////
+  
         //barandas entrada
         gl.glPushMatrix();
         gl.glTranslatef(-25.8f,3.5f,-24.7f);
@@ -589,41 +961,20 @@ public class Escenario extends JFrame implements  KeyListener,MouseListener,Mous
         gl.glPopMatrix();
         ///////////////////////////
         
-//         //pared mitad
-//         gl.glPushMatrix();
-//         gl.glRotatef(90,0,1,0);
-//         gl.glScalef(4,1,4);
-//         gl.glTranslatef(0.2f,4.7f,0.6f);
-//         pared2.display();
-//         gl.glPopMatrix();
-//         ///////////////////////////
-//         
-//         //pared mitad 2
-//         gl.glPushMatrix();
-//         gl.glRotatef(90,0,1,0);
-//         gl.glScalef(4,1,4);
-//         gl.glTranslatef(0.2f,4.7f,-1.5f);
-//         pared2.display();
-//         gl.glPopMatrix();
-//         ///////////////////////////
-//         
-//         //pared mitad hueco
-//         gl.glPushMatrix();
-//         gl.glRotatef(90,0,1,0);
-//         gl.glScalef(4,1,4);
-//         gl.glTranslatef(0.2f,8.5f,-0.5f);
-//         pared3.display();
-//         gl.glPopMatrix();
-//         ///////////////////////////
-         
-//         //pared segundo piso cuartos
-//         gl.glPushMatrix();
-//         gl.glRotatef(90,0,1,0);
-//         gl.glScalef(4,1,4);
-//         gl.glTranslatef(-0.2f,12.9f,-1.4f);
-//         pared4.display();
-//         gl.glPopMatrix();
-//         //////////////////////////
+          //techo de la casa
+      
+        gl.glPushMatrix();
+        gl.glTranslatef(-5.5f,31f,0);
+        pisocasa.display();
+        gl.glPopMatrix();
+    
+        gl.glPushMatrix();
+        gl.glTranslatef(-2f,31f,-35);
+        pisocasasala.display();
+        gl.glPopMatrix();
+     
+        ///////////////////////////
+
          
 
        

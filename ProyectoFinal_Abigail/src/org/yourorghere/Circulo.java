@@ -48,7 +48,7 @@ public class Circulo {
 
     }
     
-    public void dibujarcirculoBorde() {
+        public void display() {
         gl.glPushMatrix();
         gl.glTranslated(this.x, this.y, this.z);
         gl.glRotatef(ax, 1, 0, 0);
@@ -56,7 +56,29 @@ public class Circulo {
         gl.glRotatef(az, 0, 0, 1);
         gl.glScaled(w, h, 0);
 
-        gl.glBegin(GL_POINTS);
+        gl.glBegin(gl.GL_POLYGON);
+        gl.glColor3f(r, g, b);
+        for (int i = 0; i < 100; i++) {
+            float x = ((float) Math.cos(i * 2 * 3.14159265358979323846 / 100));
+            float y = ((float) Math.sin(i * 2 * 3.14159265358979323846 / 100));
+            gl.glVertex2f(w * (x), h * (y));
+         
+        }
+
+        gl.glEnd();
+        gl.glPopMatrix();
+
+    }
+    
+    public void dibujarcirculoBorde() {
+        gl.glPushMatrix();
+        gl.glTranslated(this.x, this.y, this.z);
+        gl.glRotatef(ax, 1, 0, 0);
+        gl.glRotatef(ay, 0, 1, 0);
+        gl.glRotatef(az, 0, 0, 1);
+        gl.glScaled(w, h, 0);
+       
+        gl.glBegin(gl.GL_LINES);
         gl.glColor3f(r, g, b);
         for (int i = 0; i < 100; i++) {
             float x = ((float) Math.cos(i * 2 * 3.14159265358979323846 / 100));
