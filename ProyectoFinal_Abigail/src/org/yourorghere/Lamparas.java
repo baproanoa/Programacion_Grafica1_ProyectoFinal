@@ -131,6 +131,43 @@ public class Lamparas {
         
     }
     
+    public void deMesa(GLUT glut){
+       
+        //cable
+        gl.glPushMatrix();
+         gl.glTranslatef(x,y+alto,z);
+         gl.glRotatef(90,1,0,0);
+         gl.glColor3f(0.7f,0.7f,0.9f);
+         glut.glutSolidCylinder(0.1f, 3f, 20, 20);
+         gl.glPopMatrix();
+        
+         
+         
+         //lampara
+         gl.glPushMatrix();
+         gl.glTranslatef(x,y+alto+0.4f,z);
+         gl.glRotatef(90,1,0,0);
+         gl.glColor3f(r,g,b);
+         glut.glutWireCylinder(0.7f, 1.3f, 10, 10);
+         gl.glPopMatrix();
+         
+         
+         //foco
+         gl.glPushMatrix();
+         gl.glTranslatef(x,y+alto-0.25f,z);
+         gl.glColor3f(1,1,0.6f);
+         glut.glutSolidSphere(0.3f, 20, 20);
+         gl.glPopMatrix();
+         
+         gl.glPushMatrix();
+         gl.glTranslatef(x,y+alto/4,z);
+         gl.glRotatef(90,1,0,0);
+         gl.glColor3f(0.7f,0.7f,0.9f);
+         glut.glutSolidCylinder(0.5f, 0.1f, 20, 20);
+         gl.glPopMatrix();
+        
+    }
+    
     public void deTecho(GLUT glut){
         
         gl.glPushMatrix();
@@ -154,6 +191,7 @@ public class Lamparas {
          glut.glutSolidSphere(alto/2, 20, 20);
          gl.glPopMatrix();
     }
+    
     public float getX() {
         return x;
     }

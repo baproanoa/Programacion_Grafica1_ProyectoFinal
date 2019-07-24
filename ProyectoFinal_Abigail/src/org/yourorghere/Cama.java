@@ -35,9 +35,9 @@ public class Cama {
     }
     
     public void display(){
-        base = new Cubo(gl,x,y,z,ancho,ancho/4,ancho*2,rx,ry,rz,0.5f,0.3f,0.1f);
+        base = new Cubo(gl,x,y,z,ancho,ancho/4,ancho*2,rx,ry,rz,1f,0.8f,0.6f);
         colchon = new Cubo(gl,x,y+0.1f,z,ancho-0.1f,ancho/4,ancho*2-0.1f,rx,ry,rz,r,g,b);
-        cabecera = new Cubo(gl,x,y+ancho/4,z-(ancho*2-0.1f)/2,ancho,ancho-0.2f,ancho/5,rx,ry,rz,0.5f,0.3f,0.1f);
+        cabecera = new Cubo(gl,x,y+ancho/4,z-(ancho*2-0.1f)/2,ancho,ancho-0.2f,ancho/5,rx,ry,rz,1f,0.8f,0.6f);
         almohadas = new Cubo(gl,x,y+0.2f,z-(ancho/2)-0.1f,ancho-0.1f,ancho/6,ancho/4,rx,ry,rz,1,1,0.9f);
         cabecera.display();
         base.display();

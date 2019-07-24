@@ -14,8 +14,12 @@ import javax.media.opengl.GL;
 public class Television {
     
     GL gl;
-    float x,y,z, rx,ry,rz, ancho,alto;
-    Cubo tele, pantalla;
+    float x,y,z, rx,ry,rz, ancho,alto,girarx,girary,girarz;
+    Cubo2 tele; 
+    Quad2 pantalla;
+    Circulo c1,c2,c3;
+    Quad2 q1,q2,q3;
+    QuadLines ql1,ql2,ql3;
     
 
     public Television(GL gl, float x, float y, float z, float rx, float ry, float rz, float ancho, float alto) {
@@ -32,15 +36,32 @@ public class Television {
     }
           
     public void display(){
-        tele = new Cubo(gl, x,y,z,rx,ry,rz,ancho,alto,ancho/15,0,0,0);
-        pantalla = new Cubo(gl,x,y,z,rx,ry,rz,ancho-0.1f,alto-0.1f,ancho/20,0.4f,0.4f,0.4f);
+        tele = new Cubo2(gl, x,y,z,ancho,alto,ancho/15,0,0,90,0.2f,0.2f,0.2f,0.4f,0.4f,0.4f);
+        pantalla = new Quad2(gl,x,y,z+ancho/14,alto-0.8f,ancho-0.8f,0,0,0,0,0,0,1,1,1);
+        c1 = new Circulo(gl,x+ancho/4,y,z+ancho/13,ancho/5,ancho/5,0,0,0,1,0,0);
+        c2 = new Circulo(gl,x+ancho/8,y+alto/4,z+ancho/13,ancho/5,ancho/5,0,0,0,0,1,0);
+        c3 = new Circulo(gl,x-ancho/2,y,z+ancho/13,ancho/5,ancho/5,0,0,0,0,0,1);
         
-        tele.display();
+        gl.glPushMatrix();
+        gl.glTranslatef(this.x, this.y, this.z);
+        gl.glRotatef(this.rx, 1, 0, 0);
+        gl.glRotatef(this.ry, 0, 1, 0);
+        gl.glRotatef(this.rz, 0, 0, 1);
         
-//        gl.glPushMatrix();
-//        gl.glTranslatef(x,y,z-ancho/20);
-//        pantalla.display();
-//        gl.glPopMatrix();
+        tele.dibuja();
+        pantalla.dibuja();
+        
+        gl.glPushMatrix();
+//        girarx+= 1f;
+//        gl.glScalef(girarx,girarx,girarx);
+        c1.display();
+        gl.glPopMatrix();
+        
+        c2.display();
+        c3.display();
+        gl.glPopMatrix();
+        
+        
         
     }
 }

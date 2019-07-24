@@ -11,15 +11,14 @@ import javax.media.opengl.GL;
  *
  * @author Abigail Proaño
  */
-public class Chimenea {
+public class TinaBaño {
     
-    GL gl;
-    float x,y,z,ancho, alto,prof,r,g,b,rot;
+     GL gl;
+    float x,y,z,ancho, alto,prof,r,g,b;
     Cubo lado1,lado2,lado3,lado4;
     Quad2 ladoposterior,ladrillos;
-    Piramide f1,f2,f3;
     
-    public Chimenea(GL gl, float x, float y, float z, float ancho, float alto,float prof, float r, float g, float b) {
+    public TinaBaño(GL gl, float x, float y, float z, float ancho, float alto,float prof, float r, float g, float b) {
         this.gl = gl;
         this.x = x;
         this.y = y;
@@ -33,22 +32,19 @@ public class Chimenea {
     }
     
     public void display(){
-        lado1 = new Cubo(gl,x-(ancho/2),y,z,ancho/4,alto,prof,0,0,0,r,g,b);
-        lado2 = new Cubo(gl,x+(ancho/2),y,z,ancho/4,alto,prof,0,0,0,r,g,b);
-        lado3 = new Cubo(gl,x,y+(alto/2),z,(1.25f)*ancho,alto/2,prof,0,0,0,r,g,b);
-        lado4 = new Cubo(gl,x,y-(alto/1.35f),z,(1.25f)*ancho,alto/2,prof,0,0,0,r,g,b);
+        lado1 = new Cubo(gl,x-(ancho/2),y,z,ancho/8,alto,prof,0,0,0,r,g,b);
+        lado2 = new Cubo(gl,x+(ancho/2),y,z,ancho/8,alto,prof,0,0,0,r,g,b);
+        lado3 = new Cubo(gl,x,y+(alto/2),z,(1.13f)*ancho,alto/8,prof,0,0,0,r,g,b);
+        lado4 = new Cubo(gl,x,y-(alto/2f),z,(1.13f)*ancho,alto/8,prof,0,0,0,r,g,b);
         ladoposterior = new Quad2(gl,x,y,z+(prof/2),ancho/2, alto/2,0,0,0,r/2,g/2,b/2,r/3,g/3,b/3);
         ladrillos = new Quad2(gl,x,y,z,ancho/10,ancho/10,0,0,0,r,g,b,r/2,g/2,b/2);
-        f1 = new Piramide(gl,x,y-alto/4,z-prof/5,ancho/20,ancho/5,ancho/10,0,rot+=3f,0,1,0.6f,0.1f,1,0.8f,0.5f);
-        f2 = new Piramide(gl,x+ancho/10,y-alto/4,z-prof/5,ancho/20,ancho/5,ancho/10,0,rot+=3f,0,1,0.6f,0.1f,1,0.8f,0.5f);
+        
         
         lado1.display();
         lado2.display();
         lado3.display();
         lado4.display();
         ladoposterior.dibuja();
-        f1.dibuja();
-        f2.dibuja();
    }
 
     public float getX() {
@@ -74,7 +70,4 @@ public class Chimenea {
     public void setZ(float z) {
         this.z = z;
     }
-    
-    
 }
-

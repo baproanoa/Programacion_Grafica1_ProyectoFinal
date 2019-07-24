@@ -207,6 +207,52 @@ public class Puerta {
         ////////////////////////
     
     }
+      
+          public void puertasimple(GLUT glut){
+        
+        puerta = new Cubo(gl,x,y,z,ancho,alto,ancho/5,0,0,0,r,g,b);
+             
+        
+        gl.glPushMatrix();
+        gl.glRotatef(90, 0, 1, 0);
+        puerta.display();
+        gl.glPopMatrix();
+        
+        //chapa de la puerta
+        gl.glPushMatrix();
+        gl.glTranslatef(0,y-alto/10,0);
+        gl.glColor3f(1f,0.9f,0.5f);
+        
+          gl.glPushMatrix();
+        gl.glTranslatef(x-ancho/8,y,z-(ancho/3));
+        gl.glRotatef(-90,0,1,0);
+        glut.glutSolidCylinder(ancho/30,ancho/20, 20, 20);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(x-ancho/5,y,z-(ancho/3));
+        glut.glutSolidSphere(ancho/20, 20, 20);
+        gl.glPopMatrix();
+        gl.glPopMatrix();
+        
+         gl.glPushMatrix();
+        gl.glTranslatef(0,y-alto/10,0);
+        gl.glColor3f(1f,0.9f,0.5f);
+        
+          gl.glPushMatrix();
+        gl.glTranslatef(x+ancho/8,y,z-(ancho/3));
+        gl.glRotatef(-90,0,1,0);
+        glut.glutSolidCylinder(ancho/30,ancho/20, 20, 20);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(x+ancho/5,y,z-(ancho/3));
+        glut.glutSolidSphere(ancho/20, 20, 20);
+        gl.glPopMatrix();
+        gl.glPopMatrix();
+        ////////////////////////7
+    
+    }
 
     public float getX() {
         return x;

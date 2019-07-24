@@ -12,56 +12,53 @@ import javax.media.opengl.GL;
  *
  * @author Abigail Proaño
  */
-public class Lavabo {
- 
+public class Armario {
     GL gl;
     GLUT glut;
-    float x,y,z,ancho,alto;
-    Cubo lavabo;
-    Circulo base;
+    float x,y,z,ancho,alto,prof,r,g,b;
+    Cubo armario;
 
-    public Lavabo(GL gl, float x, float y, float z, float ancho, float alto) {
+    public Armario(GL gl, float x, float y, float z, float ancho, float alto, float prof, float r, float g, float b) {
         this.gl = gl;
         this.x = x;
         this.y = y;
         this.z = z;
         this.ancho = ancho;
         this.alto = alto;
+        this.prof = prof;
+        this.r = r;
+        this.g = g;
+        this.b = b;
     }
     
-    public void lavabobaño(GLUT glut){
+    public void display(GLUT glut){
+    
+        armario = new Cubo(gl, x,y,z,ancho,alto,prof,0,0,0,r,g,b);
         
-        base = new Circulo(gl,x,y+alto/14,z,ancho/2,ancho/2,90,0,0,0.99f,0.99f,0.99f);
-        //base del lavabo
+        
+        armario.display();
+                
         gl.glPushMatrix();
-        gl.glColor3f(0.9f,0.9f,0.9f);
-        gl.glTranslatef(x,y,z);
+        gl.glColor3f(0.8f,0.8f,0.8f);
+        gl.glBegin(gl.GL_LINES);
+        gl.glVertex3f(x,y-(alto/1.98f),z-(prof/1.98f));
+        gl.glVertex3f(x,y+(alto/1.98f),z-(prof/1.98f));
+        gl.glEnd();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glColor3f(0.8f,0.8f,0.8f);
+        gl.glTranslatef(x-(ancho/6),y+(alto/10),z-(prof/1.98f));
         gl.glRotatef(90,1,0,0);
-        glut.glutSolidCylinder(ancho/4, alto, 20, 20);
-        gl.glPopMatrix();
-        
-        //lavabo
-        gl.glPushMatrix();
-         gl.glColor3f(1,1,1);
-        gl.glTranslatef(x,y+alto/5,z);
-          gl.glRotatef(90,1,0,0);
-          gl.glScalef(1f,1f,1f);
-        glut.glutSolidCone(ancho, alto/2, 20, 20);
+        glut.glutSolidCylinder(0.1f, alto/5, 20, 20);
         gl.glPopMatrix();
         
         gl.glPushMatrix();
-         gl.glColor3f(0.8f,0.8f,0.8f);
-        gl.glTranslatef(x,y+alto/4.5f,z);
-          gl.glRotatef(90,1,0,0);
-          gl.glScalef(0.3f,0.3f,0.3f);
-          glut.glutSolidTorus(ancho/4, 3*ancho, 40, 40);
+        gl.glColor3f(0.8f,0.8f,0.8f);
+        gl.glTranslatef(x+(ancho/6),y+(alto/10),z-(prof/1.98f));
+        gl.glRotatef(90,1,0,0);
+        glut.glutSolidCylinder(0.1f, alto/5, 20, 20);
         gl.glPopMatrix();
-        
-        //base
-        gl.glPushMatrix();
-        base.display();
-        gl.glPopMatrix();
-        
     }
 
     public float getX() {
@@ -87,6 +84,5 @@ public class Lavabo {
     public void setZ(float z) {
         this.z = z;
     }
-    
     
 }

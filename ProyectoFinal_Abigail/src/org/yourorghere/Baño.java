@@ -12,15 +12,14 @@ import javax.media.opengl.GL;
  *
  * @author Abigail Proaño
  */
-public class Lavabo {
- 
+public class Baño {
+    
     GL gl;
-    GLUT glut;
     float x,y,z,ancho,alto;
-    Cubo lavabo;
-    Circulo base;
+    Cubo tanque;
+    Circulo agua;
 
-    public Lavabo(GL gl, float x, float y, float z, float ancho, float alto) {
+    public Baño(GL gl, float x, float y, float z, float ancho, float alto) {
         this.gl = gl;
         this.x = x;
         this.y = y;
@@ -29,23 +28,24 @@ public class Lavabo {
         this.alto = alto;
     }
     
-    public void lavabobaño(GLUT glut){
+    public void display(GLUT glut){
         
-        base = new Circulo(gl,x,y+alto/14,z,ancho/2,ancho/2,90,0,0,0.99f,0.99f,0.99f);
-        //base del lavabo
+        tanque = new Cubo(gl,x,y+alto/2,z+ancho/1.5f,1.1f*ancho,alto/2,ancho/2,0,0,0,1.8f,1.8f,1.8f);
+        agua = new Circulo(gl,x,y+alto/8,z,ancho/2.5f,alto/4,90,0,0,0.8f,0.9f,1);
+        //base del baño
         gl.glPushMatrix();
         gl.glColor3f(0.9f,0.9f,0.9f);
         gl.glTranslatef(x,y,z);
         gl.glRotatef(90,1,0,0);
-        glut.glutSolidCylinder(ancho/4, alto, 20, 20);
+        glut.glutSolidCylinder(ancho/2, alto/3, 20, 20);
         gl.glPopMatrix();
         
-        //lavabo
+        //taza del baño
         gl.glPushMatrix();
          gl.glColor3f(1,1,1);
         gl.glTranslatef(x,y+alto/5,z);
           gl.glRotatef(90,1,0,0);
-          gl.glScalef(1f,1f,1f);
+          gl.glScalef(1f,0.6f,1f);
         glut.glutSolidCone(ancho, alto/2, 20, 20);
         gl.glPopMatrix();
         
@@ -53,40 +53,22 @@ public class Lavabo {
          gl.glColor3f(0.8f,0.8f,0.8f);
         gl.glTranslatef(x,y+alto/4.5f,z);
           gl.glRotatef(90,1,0,0);
-          gl.glScalef(0.3f,0.3f,0.3f);
+          gl.glScalef(0.3f,0.2f,0.3f);
           glut.glutSolidTorus(ancho/4, 3*ancho, 40, 40);
         gl.glPopMatrix();
         
-        //base
+        //agua
         gl.glPushMatrix();
-        base.display();
+        gl.glRotatef(90,0,1,0);
+        agua.display();
         gl.glPopMatrix();
         
+        //tanque 
+        gl.glPushMatrix();
+          gl.glRotatef(90,0,1,0);
+            tanque.display();
+        gl.glPopMatrix();
+        
+        
     }
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public float getZ() {
-        return z;
-    }
-
-    public void setZ(float z) {
-        this.z = z;
-    }
-    
-    
 }

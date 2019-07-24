@@ -35,6 +35,8 @@ public class Quad2 {
 
         gl.glTranslated(this.x, this.y, this.z);
         gl.glRotatef(ax, 1, 0, 0);
+        gl.glRotatef(ay, 0, 1, 0);
+        gl.glRotatef(az, 0, 0, 1);
         gl.glScaled(w, h, 0);
 
         //Color 

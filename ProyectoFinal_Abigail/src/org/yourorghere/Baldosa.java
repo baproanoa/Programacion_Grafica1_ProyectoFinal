@@ -108,4 +108,39 @@ public class Baldosa {
         gl.glPopMatrix();
         
     }
+    
+     public void dibuja(int num){
+        
+        baldosas1 = new Quad2(gl,x,y,z,ancho/10,ancho/10,270,0,0,r,g,b,r/2,g/2,b/2);
+
+                
+        gl.glPushMatrix();
+        for (int i = 2; i < num+1; i++) {
+            
+            gl.glTranslatef(0,0,4*(ancho/10));
+            baldosas1.dibuja();
+            
+        }
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(2*(ancho/10),0,2*(ancho/10));
+        for (int i = 2; i < num+1; i++) {
+            
+            gl.glTranslatef(0,0,4*(ancho/10));
+            baldosas1.dibuja();    
+        }
+        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(4*(ancho/10),0,0);
+        for (int i = 2; i < num+1; i++) {
+            
+            gl.glTranslatef(0,0,4*(ancho/10));
+            baldosas1.dibuja();    
+        }
+        gl.glPopMatrix();
+        
+    }
 }
